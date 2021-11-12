@@ -22,16 +22,20 @@ const Home: NextPage = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<IForm>();
-  const onValid = ({ url }: IForm) => {
-    fetch("/api/submit", {
-      method: "POST",
-      body: JSON.stringify({ url }),
-    });
+  const onValid = async ({ url }: IForm) => {
+    const response = await fetch(
+      `https://huchu.nomadcoders.workers.dev/?url=${url}`,
+      {
+        method: "POST",
+      }
+    );
+    console.log(await response.json());
   };
   return (
     <Box bg="gray.900" minH="100vh" pt="4" color="white">
       <Head>
         <title>후추.링크</title>
+        <link rel="icon" href="/assets/favicon.ico" />
       </Head>
       <Container pt="28">
         <VStack spacing={"8"}>

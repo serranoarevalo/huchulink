@@ -5,8 +5,7 @@ module.exports = {
     return [
       {
         source: "/:path",
-        destination:
-          "https://spring-sun-2067.nomadcoders.workers.dev?key=:path",
+        destination: "https://huchu.nomadcoders.workers.dev?key=:path",
         permanent: true,
       },
     ];
