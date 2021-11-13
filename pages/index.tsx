@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/layout";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface IForm {
@@ -21,15 +22,28 @@ const Home: NextPage = () => {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
   } = useForm<IForm>();
+  const [loading, setLoading] = useState(false);
+  const [key, setKey] = useState("");
   const onValid = async ({ url }: IForm) => {
-    const response = await fetch(
-      `https://huchu.nomadcoders.workers.dev/?url=${url}`,
-      {
-        method: "POST",
-      }
-    );
-    console.log(await response.json());
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://huchu.nomadcoders.workers.dev/?url=${url}`,
+        {
+          method: "POST",
+        }
+      );
+      const { key } = await response.json();
+      setKey(key);
+      setLoading(false);
+    } catch (e) {
+      setError("url", { message: "Could not process URL." });
+    }
+  };
+  const onCopy = () => {
+    navigator.clipboard.writeText(`https://huchu.link/${key}`);
   };
   return (
     <Box bg="gray.900" minH="100vh" pt="4" color="white">
@@ -71,14 +85,37 @@ const Home: NextPage = () => {
               borderWidth="2px"
               _placeholder={{ color: "gray.50" }}
             />
-            <Button size="lg" colorScheme="pink" type="submit">
+            <Button
+              isLoading={loading}
+              disabled={loading}
+              size="lg"
+              colorScheme="pink"
+              type="submit"
+            >
               Shorten
             </Button>
           </HStack>
-
-          <Text color="red.500" mt="5" fontWeight="500">
-            {errors?.url?.message}
-          </Text>
+          <HStack mt="5" fontWeight="500" textAlign="center">
+            {key !== "" && (
+              <HStack>
+                <Text color="white">Done! Here is your URL: </Text>
+                <Text as="span" color="pink.400">
+                  <Text textDecoration="underline">
+                    https://huchu.link/{key}
+                  </Text>
+                </Text>
+                <Button
+                  onClick={onCopy}
+                  variant="outline"
+                  colorScheme="pink"
+                  size="sm"
+                >
+                  Copy
+                </Button>
+              </HStack>
+            )}
+            <Text color="red.500">{errors?.url?.message}</Text>
+          </HStack>
         </VStack>
       </Container>
     </Box>
