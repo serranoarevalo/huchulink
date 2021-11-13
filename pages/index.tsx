@@ -5,6 +5,7 @@ import {
   Center,
   Container,
   HStack,
+  Link,
   Text,
   VStack,
 } from "@chakra-ui/layout";
@@ -118,6 +119,32 @@ const Home: NextPage = () => {
           </HStack>
         </VStack>
       </Container>
+      <Box
+        position="absolute"
+        bottom="10"
+        left="0"
+        right="0"
+        textAlign="center"
+      >
+        <Text as="span">
+          With 💖 by{" "}
+          <Link
+            borderBottomColor="pink.500"
+            borderBottomWidth="1px"
+            _hover={{ textDecoration: "none", color: "pink.500" }}
+            href="https://github.com/serranoarevalo"
+            target="_blank"
+          >
+            @serranoarevalo
+          </Link>
+        </Text>
+      </Box>
+      <style global jsx>{`
+        @import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+        * {
+          font-family: "Spoqa Han Sans Neo", "sans-serif";
+        }
+      `}</style>
     </Box>
   );
 };
