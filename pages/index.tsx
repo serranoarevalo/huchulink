@@ -81,7 +81,7 @@ const Home: NextPage = () => {
               _invalid={{ borderColor: "red.500" }}
               isInvalid={Boolean(errors.url)}
               colorScheme="pink"
-              placeholder="Shorten your link"
+              placeholder="Paste your 링크 here :)"
               borderColor="gray.100"
               borderWidth="2px"
               _placeholder={{ color: "gray.50" }}
