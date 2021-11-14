@@ -51,6 +51,7 @@ const Home: NextPage = () => {
       <Head>
         <title>후추.링크</title>
         <link rel="icon" href="/assets/favicon.ico" />
+        <meta name="description" content="Free easy to use link shortener." />
       </Head>
       <Container pt="28">
         <VStack spacing={"8"}>
