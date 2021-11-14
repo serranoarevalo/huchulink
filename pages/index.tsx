@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://huchu.nomadcoders.workers.dev/?url=${url}`,
+        `https://huchu.nomadcoders.workers.dev/?url=${encodeURIComponent(url)}`,
         {
           method: "POST",
         }
